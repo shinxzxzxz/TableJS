@@ -234,7 +234,7 @@ import { HttpRequest, TableJSError } from './module.js';
 		});
 		this.dataset = UTILITIES.validateVariable(this.dataset, {
 			variableName: 'setDataset.(this)dataset',
-			$transform: ({ rendering }) => ({ collection: dataset, rendering }),
+			$transform: ({ rendering }) => ({ collection: dataset, rendering, init = false }),
 			$fallback: () => dataset,
 			$and: [
 				{ typeOf: 'object' },
