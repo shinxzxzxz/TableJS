@@ -1348,13 +1348,14 @@ function toInitialize(instance, render) {
 			render(dataset);
 		} else if (
 			dataset.rendering &&
-			typeof dataset.rendering === 'function' &&
-			dataset.init !== false
+			typeof dataset.rendering === 'function'
 		) {
-			render = dataset.rendering;
-			delete dataset.rendering;
-			delete dataset.init;
-			render(dataset);
+			if (dataset.init) {
+				render = dataset.rendering;
+				delete dataset.rendering;
+				delete dataset.init;
+				render(dataset);
+			}
 		} else {
 			toRender(dataset);
 		}
