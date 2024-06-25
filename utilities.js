@@ -1329,9 +1329,10 @@ function toInitialize(instance, render) {
 		dataset = UTILITIES.validateVariable(dataset, {
 			variableName: 'toInitialize.dataset',
 			$transform: (data) => ({ data, table: elements.table, instance }),
-			$fallback: ({ collection, rendering }) => ({
+			$fallback: ({ collection, rendering, init = false }) => ({
 				data: collection,
 				rendering,
+				init,
 				table: elements.table,
 				instance,
 			}),
@@ -1347,10 +1348,12 @@ function toInitialize(instance, render) {
 			render(dataset);
 		} else if (
 			dataset.rendering &&
-			typeof dataset.rendering === 'function'
+			typeof dataset.rendering === 'function' &&
+			dataset.init !== false
 		) {
 			render = dataset.rendering;
 			delete dataset.rendering;
+			delete dataset.init;
 			render(dataset);
 		} else {
 			toRender(dataset);
